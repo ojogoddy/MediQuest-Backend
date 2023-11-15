@@ -1,16 +1,12 @@
 import express, {Application} from "express"
-import cors from "cors"
-import morgan from "morgan"
 import "./Database/db"
-import router from "./router/jagoRouter"
+import { mainApp } from "./mainApp"
 
-const port: number = 4000
+const port:number = 4500
 const app:Application = express()
+mainApp(app)
 
-app.use(express.json())
-app.use(cors())
-app.use(morgan("dev"))
-app.use("/api/v1", router)
+
 
 app.use("/uploads", express.static("uploads"))
 
@@ -19,16 +15,14 @@ const server = app.listen(port, ()=>{
 })
 
 process.on("uncaughtException", (error:any)=>{
-    console.log("stop here: uncaughtException", error)
+    console.log("stop here: uncaughtException")
     console.log(error)
     process.exit(1) 
 })
 
 process.on("unhandledRejection", (reason:any, promise:Promise<any>)=>{
-    console.log("unhandled promise Rejection:")
+    console.log("stop here: unhandledRejection")
     console.log("Reason",reason)
-    console.log("Promise",promise)
-
     server.close(()=>{
         process.exit(1)
     })

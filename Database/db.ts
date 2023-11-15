@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const url:string = "mongodb://0.0.0.0:27017/JagoUserAuth"
+const url:string = "mongodb://0.0.0.0:27017/MediQuest"
 
 mongoose.connect(url).then(()=>{
     console.log("Connected to MongoDB")
